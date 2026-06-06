@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>KIZUNA HOME様 省エネルギー・脱炭素化 ご提案書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12302a; --green:#1f6f5c; --green-deep:#143f35; --green-bright:#2f9b7e;
+    --paper:#f7f3e9; --paper-2:#efe8d8; --gold:#c19a3e; --gold-soft:#e7cf8e;
+    --text:#22302a; --muted:#5d6b63; --line:rgba(18,48,42,.12); --danger:#b5532b;
+    --serif:'Shippori Mincho',serif; --sans:'Zen Kaku Gothic New',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#0c211c;font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased}
+  #deck{position:fixed;inset:0}
+  .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .55s ease;
+    padding:clamp(24px,5vh,56px) clamp(20px,5vw,64px) clamp(170px,30vh,250px);overflow-y:auto}
+  .slide.active{opacity:1;visibility:visible}
+  .inner{width:100%;max-width:920px;margin:auto}
+
+  /* light & dark themes per slide */
+  .slide.light{background:
+      radial-gradient(120% 120% at 100% 0%, #fffaf0 0%, var(--paper) 42%, var(--paper-2) 100%)}
+  .slide.dark{background:
+      radial-gradient(120% 130% at 0% 0%, #1d5044 0%, var(--green-deep) 48%, var(--ink) 100%);color:var(--paper)}
+  .slide.dark .muted{color:#bcd2c8}
+  .slide.dark .eyebrow{color:var(--gold-soft)}
+  .slide.dark .card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
+  .slide.dark .card p,.slide.dark .stat .lab,.slide.dark .note{color:#d6e7df}
+  .slide.dark .rule{background:linear-gradient(90deg,var(--gold-soft),transparent)}
+
+  .eyebrow{font-family:var(--sans);font-weight:700;letter-spacing:.28em;font-size:clamp(10px,1.4vw,13px);
+    color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:2px;background:currentColor;display:inline-block}
+  h1.title{font-family:var(--serif);font-weight:800;line-height:1.18;font-size:clamp(26px,4.6vw,46px);letter-spacing:.01em}
+  h2.title{font-family:var(--serif);font-weight:700;line-height:1.22;font-size:clamp(22px,3.8vw,38px);margin-bottom:6px}
+  .lead{font-size:clamp(15px,2vw,19px);line-height:1.9;margin-top:18px;color:var(--text)}
+  .slide.dark .lead{color:#e9f1ec}
+  .rule{height:3px;width:64px;background:linear-gradient(90deg,var(--gold),transparent);margin:18px 0 4px;border-radius:2px}
+  .muted{color:var(--muted)}
+
+  /* cover */
+  .cover .brandmark{font-family:var(--serif);font-weight:800;font-size:clamp(40px,8vw,76px);
+    line-height:1.05;letter-spacing:.02em;background:linear-gradient(110deg,#fff 0%,var(--gold-soft) 60%,var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .cover .sub{font-family:var(--serif);font-size:clamp(18px,3vw,26px);margin-top:8px;color:var(--paper)}
+  .cover .meta{margin-top:42px;font-size:13px;letter-spacing:.06em;color:#cfe0d8;line-height:2}
+  .cover .badge{display:inline-block;margin-top:24px;padding:7px 16px;border:1px solid var(--gold-soft);
+    border-radius:999px;color:var(--gold-soft);font-size:12px;letter-spacing:.18em}
+
+  /* generic layout helpers */
+  .grid{display:grid;gap:14px;margin-top:24px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 18px;
+    box-shadow:0 8px 26px rgba(18,48,42,.06)}
+  .card h3{font-family:var(--serif);font-size:clamp(15px,2vw,18px);font-weight:700;margin-bottom:6px;color:var(--green-deep)}
+  .slide.dark .card h3{color:var(--gold-soft)}
+  .card p{font-size:13.5px;line-height:1.75;color:var(--muted)}
+  .stat .n{font-family:var(--serif);font-weight:800;font-size:clamp(22px,3.6vw,34px);color:var(--green);line-height:1.1}
+  .slide.dark .stat .n{color:var(--gold-soft)}
+  .stat .u{font-size:12px;color:var(--muted);margin-left:4px;font-weight:500}
+  .stat .lab{font-size:12.5px;color:var(--muted);margin-top:8px;letter-spacing:.04em}
+
+  ul.clean{list-style:none;margin-top:18px}
+  ul.clean li{position:relative;padding:11px 0 11px 30px;font-size:15px;line-height:1.7;border-bottom:1px dashed var(--line)}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:18px;width:9px;height:9px;border-radius:50%;
+    background:var(--gold);box-shadow:0 0 0 4px rgba(193,154,62,.15)}
+  ul.clean li b{color:var(--green-deep)}
+  .slide.dark ul.clean li b{color:var(--gold-soft)}
+  .slide.dark ul.clean li{border-color:rgba(255,255,255,.14)}
+
+  .num-list{counter-reset:n;list-style:none;margin-top:18px;display:grid;gap:10px}
+  .num-list li{counter-increment:n;position:relative;padding:12px 14px 12px 50px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;font-size:14px;line-height:1.7}
+  .num-list li::before{content:counter(n);position:absolute;left:12px;top:11px;width:26px;height:26px;border-radius:50%;
+    display:grid;place-items:center;background:var(--green);color:#fff;font-family:var(--serif);font-weight:700;font-size:14px}
+  .slide.dark .num-list li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+
+  table.data{width:100%;border-collapse:collapse;margin-top:20px;font-size:13.5px;background:#fff;border-radius:14px;overflow:hidden;
+    color:var(--ink);box-shadow:0 8px 26px rgba(18,48,42,.06)}
+  table.data th,table.data td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line)}
+  table.data th:first-child,table.data td:first-child{text-align:left}
+  table.data thead th{background:var(--green-deep);color:#fff;font-weight:700;letter-spacing:.04em}
+  table.data tbody tr:last-child td{border-bottom:none}
+  table.data .hi{color:var(--green);font-weight:700}
+  table.data tr.total td{background:var(--paper-2);font-weight:700;color:var(--green-deep)}
+  .tag-in{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(31,111,92,.14);color:var(--green-deep);font-weight:700}
+  .tag-out{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(181,83,43,.14);color:var(--danger);font-weight:700}
+
+  /* bar chart */
+  .chart{margin-top:24px;display:flex;align-items:flex-end;gap:6px;height:200px;padding:14px 8px 0;
+    background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 26px rgba(18,48,42,.06)}
+  .chart .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px}
+  .chart .bar i{display:block;width:62%;border-radius:5px 5px 0 0;
+    background:linear-gradient(180deg,var(--green-bright),var(--green));transition:height .8s cubic-bezier(.2,.8,.2,1)}
+  .chart .bar.peak i{background:linear-gradient(180deg,var(--gold-soft),var(--gold))}
+  .chart .bar span{font-size:10px;color:var(--muted)}
+  .note{font-size:11.5px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+
+  .callout{margin-top:20px;padding:16px 18px;border-radius:14px;border-left:5px solid var(--gold);
+    background:rgba(193,154,62,.1);font-size:14px;line-height:1.8}
+  .callout.warn{border-left-color:var(--danger);background:rgba(181,83,43,.1)}
+  .callout b{color:var(--green-deep)}
+  .slide.dark .callout{background:rgba(231,207,142,.12)}
+  .slide.dark .callout b{color:var(--gold-soft)}
+
+  .timeline{margin-top:22px;display:grid;gap:0}
+  .timeline .tl{position:relative;padding:0 0 18px 28px;border-left:2px solid var(--line)}
+  .timeline .tl:last-child{border-left-color:transparent}
+  .timeline .tl::before{content:"";position:absolute;left:-7px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--paper)}
+  .timeline .tl b{font-family:var(--serif);color:var(--green-deep);font-size:15px}
+  .timeline .tl .d{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.04em}
+  .timeline .tl p{font-size:13px;color:var(--muted);margin-top:2px}
+
+  .contact-card{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;
+    box-shadow:0 10px 30px rgba(18,48,42,.08)}
+  .slide.dark .contact-card{background:rgba(255,255,255,.06)}
+  .contact-card .co{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--green-deep)}
+  .slide.dark .contact-card .co{color:var(--gold-soft)}
+  .contact-card .row{display:flex;gap:10px;font-size:14px;padding:5px 0;color:var(--text)}
+  .slide.dark .contact-card .row{color:#e9f1ec}
+  .contact-card .k{color:var(--gold);font-weight:700;min-width:64px;letter-spacing:.06em}
+
+  /* footer */
+  .foot{position:fixed;left:0;right:0;bottom:0;height:30px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 16px;font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.5);pointer-events:none;z-index:5}
+  .slide.light ~ .foot{} /* footer color is fixed white over controls bar */
+
+  /* ===== Controls ===== */
+  .ctrl{position:fixed;left:0;right:0;bottom:30px;height:58px;display:flex;align-items:center;gap:8px;
+    padding:0 12px;background:linear-gradient(180deg,transparent,rgba(12,33,28,.86));z-index:10}
+  .btn{appearance:none;border:none;background:rgba(255,255,255,.1);color:#fff;width:42px;height:42px;border-radius:12px;
+    display:grid;place-items:center;cursor:pointer;transition:.2s;backdrop-filter:blur(6px)}
+  .btn:hover{background:rgba(255,255,255,.2)}
+  .btn svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .btn.play{background:var(--gold);width:48px;height:48px}
+  .btn.play:hover{background:var(--gold-soft)}
+  .btn.play svg{stroke:#12302a;fill:#12302a}
+  .btn.active{background:var(--green-bright)}
+  .spacer{flex:1}
+  .pageno{color:#fff;font-family:var(--serif);font-size:14px;letter-spacing:.05em;min-width:64px;text-align:center;opacity:.9}
+  .pageno b{font-size:18px}
+
+  .progress{position:fixed;left:0;right:0;bottom:88px;height:3px;background:rgba(255,255,255,.12);z-index:10}
+  .progress i{display:block;height:100%;width:4%;background:linear-gradient(90deg,var(--green-bright),var(--gold));transition:width .4s}
+
+  /* caption */
+  .caption{position:fixed;left:50%;transform:translateX(-50%);bottom:92px;max-width:min(940px,94vw);
+    background:rgba(12,33,28,.86);color:#f3eedf;border:1px solid rgba(231,207,142,.3);border-radius:14px;
+    padding:11px 18px;font-size:13px;line-height:1.6;max-height:128px;overflow-y:auto;backdrop-filter:blur(8px);z-index:9;
+    opacity:0;transition:opacity .3s;pointer-events:auto}
+  .caption.show{opacity:1}
+
+  /* menu drawer */
+  .scrim{position:fixed;inset:0;background:rgba(8,20,17,.55);opacity:0;visibility:hidden;transition:.3s;z-index:20}
+  .scrim.open{opacity:1;visibility:visible}
+  .menu{position:fixed;top:0;right:0;height:100%;width:min(360px,86vw);background:var(--paper);
+    transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);z-index:21;overflow-y:auto;
+    box-shadow:-20px 0 50px rgba(0,0,0,.3)}
+  .menu.open{transform:none}
+  .menu .mh{padding:22px 22px 14px;font-family:var(--serif);font-weight:700;color:var(--green-deep);
+    font-size:18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper)}
+  .menu-item{display:flex;gap:12px;align-items:baseline;width:100%;text-align:left;border:none;background:none;
+    padding:12px 22px;cursor:pointer;font-family:var(--sans);font-size:14px;color:var(--text);border-bottom:1px solid var(--line)}
+  .menu-item:hover{background:var(--paper-2)}
+  .menu-item.active{background:rgba(31,111,92,.1);color:var(--green-deep);font-weight:700}
+  .menu-item .num{font-family:var(--serif);color:var(--gold);font-weight:700;min-width:24px}
+
+  /* welcome */
+  .welcome{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;
+    background:radial-gradient(120% 120% at 50% 0%,#1d5044,var(--ink));transition:opacity .5s}
+  .welcome.hide{opacity:0;visibility:hidden}
+  .wbox{max-width:480px;text-align:center;color:var(--paper)}
+  .wbox .em{font-family:var(--serif);background:linear-gradient(110deg,#fff,var(--gold-soft) 70%,var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1.1}
+  .wbox p{margin-top:16px;line-height:1.9;font-size:14.5px;color:#d6e4dc}
+  .wbox .go{margin-top:28px;display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;
+    background:var(--gold);color:#12302a;font-weight:700;font-size:15px;border:none;cursor:pointer;letter-spacing:.04em;transition:.2s}
+  .wbox .go:hover{background:var(--gold-soft);transform:translateY(-2px)}
+  .wbox .hint{margin-top:18px;font-size:11.5px;color:#9fb8ad;letter-spacing:.04em}
+
+  /* audio mode menu */
+  .amenu{position:fixed;bottom:96px;left:12px;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:8px;z-index:30;box-shadow:0 12px 30px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(8px);transition:.25s}
+  .amenu.open{opacity:1;visibility:visible;transform:none}
+  .amenu button{display:block;width:200px;text-align:left;border:none;background:none;padding:10px 12px;border-radius:9px;
+    cursor:pointer;font-family:var(--sans);font-size:13px;color:var(--text)}
+  .amenu button:hover{background:var(--paper-2)}
+  .amenu button.on{background:rgba(31,111,92,.12);color:var(--green-deep);font-weight:700}
+  .amenu .ttl{font-size:10.5px;letter-spacing:.16em;color:var(--gold);padding:6px 12px 2px;font-weight:700}
+
+  @media(max-width:640px){
+    .g2,.g3,.g4{grid-template-columns:1fr 1fr}
+    .slide{padding:clamp(18px,3vh,28px) 18px clamp(150px,30vh,210px)}
+    .caption{bottom:88px;font-size:12px;line-height:1.55;max-height:116px;padding:9px 13px}
+    table.data{font-size:11.5px}
+    table.data th,table.data td{padding:8px 7px}
+    .chart{height:150px}
+  }
+</style>
+</head>
+<body>
+
+<div id="deck"></div>
+
+<div class="progress"><i id="pfill"></i></div>
+
+<div class="ctrl">
+  <button class="btn" id="amode-btn" title="音声モード" onclick="toggleAudioMenu()"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+  <button class="btn" id="cc-btn" title="字幕" onclick="toggleCaption()"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M7 11h2M7 14h4M14 11h3M14 14h3"/></svg></button>
+  <div class="spacer"></div>
+  <button class="btn" id="prev" title="前へ" onclick="prevSlide()"><svg viewBox="0 0 24 24"><path d="M15 18 9 12l6-6"/></svg></button>
+  <button class="btn play" id="play" title="ナレーション再生 / 停止" onclick="togglePlay()"><svg id="play-ico" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
+  <button class="btn" id="next" title="次へ" onclick="nextSlide()"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div class="spacer"></div>
+  <div class="pageno"><b id="pcur">1</b> / <span id="ptot">8</span></div>
+  <button class="btn" id="menu-btn" title="目次" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+</div>
+
+<div class="foot"><span>株式会社シスコムネット　寺嵜 忠弘</span><span>KIZUNA HOME 様 ご提案書</span></div>
+
+<div class="caption" id="cap"><span id="cap-t"></span></div>
+
+<div class="amenu" id="amenu">
+  <div class="ttl">音声モード</div>
+  <button id="am-tts" class="on" onclick="setAudioMode('tts')">🔊 ブラウザ音声（推奨・高品質）</button>
+  <button id="am-mp3" onclick="setAudioMode('mp3')">💿 MP3ファイル（オフライン予備）</button>
+</div>
+
+<div class="scrim" id="scrim" onclick="toggleMenu()"></div>
+<nav class="menu" id="menu"><div class="mh">目次 ─ Contents</div></nav>
+
+<div class="welcome" id="welcome">
+  <div class="wbox">
+    <div class="em">KIZUNA HOME</div>
+    <p>省エネルギー・脱炭素化 ご提案書<br>株式会社シスコムネットの寺嵜より、実データに基づくご提案を差し上げます。</p>
+    <button class="go" onclick="startShow()">▶ ナレーション付きで開始</button>
+    <div class="hint">音声が再生されない場合は、画面の ▶ ボタンを一度押してください。<br>Chrome / Edge / Safari 推奨</div>
+  </div>
+</div>
+
+<script>
+/* ============ Narration (25) ============ */
+const NARRATIONS = [
+"皆川様、本日はご覧いただきありがとうございます。株式会社シスコムネットの寺嵜より、先日の省エネルギー診断の結果を踏まえ、KIZUNA HOME様の電気代削減のご提案を、要点を絞ってお伝えいたします。",
+"まず現状です。KIZUNA HOME様の年間電気代は約700万円、年間使用量は約18万キロワットアワー。24時間稼働で、特に冬の早朝に暖房と給湯のピークがあります。入居率はまだ約30パーセントですが、満床に近づくと電気代は約2100万円規模まで増える見込みです。だからこそ、減らす、作る、貯める、の3段階が効いてきます。",
+"ご提案の柱は3段階です。第1に、窓の遮熱・断熱コーティングで熱の出入りを抑え、電気を減らす。第2に、太陽光発電78.75キロワットで電気を作る。第3に、蓄電池40.5キロワットアワーで貯めて、夕方から夜に使う。いずれも6月3日の省エネ診断の結果を踏まえた組み合わせです。",
+"ご提案は2つのプランです。Aプランは補助金活用を最適化した構成で、投資総額2167万円、補助金496万円を差し引いた自己負担は1671万円、投資回収は現状ベースで6.0年。Bプランは住居部の窓も加えて削減を最大化し、自己負担2448万円、回収7.6年です。どちらを選ばれても正解になるよう設計しております。",
+"電気代の削減効果です。現状の入居率では年間でAプラン277万円、Bプラン322万円。満床時にはAプラン408万円、Bプラン558万円まで広がります。投資回収は満床達成で4年台に短縮し、20年間の累計では最大で約8700万円の効果が見込めます。入居率の改善と一緒に進めるほど、効果が高まります。",
+"金額に表れない価値が、停電時の備えです。認知症対応型のご入居者様は環境の変化が大きな負担となり、停電や避難は健康リスクに直結します。本提案の蓄電池40.5キロワットアワーは、停電時に特定の回路を12時間から24時間バックアップし、太陽光と連携すれば晴天時は無期限で自立できます。ご入居者様とご家族の安心に直結いたします。",
+"進め方です。千葉県の補助金は5月15日に受付が始まり、6月3日に診断を終えました。今後は7月までに書類を整え、10月7日が申請締切、交付決定は10月から11月、工事は11月から12月の予定です。ひとつだけご注意は、交付決定の前に契約や着工をすると補助の対象外になる点です。申請の手続きは寺嵜が代行いたしますので、ご負担は最小限です。",
+"まとめです。ひとつ、電気代は確実に下がります。ふたつ、補助金で実質負担を抑えられます。みっつ、停電時もご入居者様を守れます。まずはこのご提案にお目通しいただき、ご不明な点をお聞かせください。ご判断は皆川様のペースで構いません。寺嵜が最後まで伴走いたします。お問い合わせは、電話043-261-8033、メールt-terasaki@syscomnet.co.jpまで。"
+];
+
+/* ============ Slides ============ */
+const SLIDES = [
+{bg:"dark",cls:"cover",html:`
+  <div class="inner" style="text-align:center">
+    <div class="eyebrow" style="justify-content:center">SYSCOMNET ENERGY PROPOSAL</div>
+    <div class="brandmark">省エネルギー・<br>電気代削減 ご提案</div>
+    <div class="sub">KIZUNA HOME 様</div>
+    <div class="badge">省エネ診断の結果を踏まえた 要点ご提案</div>
+    <div class="meta">株式会社シスコムネット　担当 寺嵜 忠弘<br>ご提案日：2026年6月3日</div>
+  </div>`},
+
+{bg:"light",html:`
+  <div class="inner">
+    <div class="eyebrow">THE CHALLENGE</div><h2 class="title">現状の電気代と課題</h2><div class="rule"></div>
+    <div class="grid g4">
+      <div class="card stat"><div class="n">約700<span class="u">万円</span></div><div class="lab">年間電気代（現状）</div></div>
+      <div class="card stat"><div class="n">約18<span class="u">万kWh</span></div><div class="lab">年間使用量</div></div>
+      <div class="card stat"><div class="n">約30<span class="u">%</span></div><div class="lab">入居率（24/80世帯）</div></div>
+      <div class="card stat"><div class="n">49<span class="u">kW</span></div><div class="lab">冬の早朝ピーク</div></div>
+    </div>
+    <div class="callout">24時間稼働＋冬の暖房ピークが負担に。入居率が<b>満床(100%)に近づくと電気代は約2,100万円規模</b>へ。だからこそ「減らす×作る×貯める」が効きます。</div>
+  </div>`},
+
+{bg:"dark",html:`
+  <div class="inner">
+    <div class="eyebrow">OUR APPROACH</div><h2 class="title">3段階で電気代を下げる</h2><div class="rule"></div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card"><h3>① 減らす</h3><p>窓の遮熱・断熱コーティング（ビッグファインG）で、熱の出入りを抑制。</p></div>
+      <div class="card"><h3>② 作る</h3><p>太陽光発電 78.75kW を野立て設置。年間 約86,000kWh を発電。</p></div>
+      <div class="card"><h3>③ 貯める・使う</h3><p>蓄電池 40.5kWh（Powerwall 3 ×3）で、夕方〜夜間に活用。</p></div>
+    </div>
+    <div class="callout">いずれも <b>6/3の省エネ診断（レナリア）</b> の結果を踏まえた組み合わせです。</div>
+  </div>`},
+
+{bg:"light",html:`
+  <div class="inner">
+    <div class="eyebrow">PLAN A / PLAN B</div><h2 class="title">2つのプランをご用意しました</h2><div class="rule"></div>
+    <table class="data">
+      <thead><tr><th>項目</th><th>Aプラン<br>補助金最適化</th><th>Bプラン<br>削減最大化</th></tr></thead>
+      <tbody>
+        <tr><td>構成</td><td>太陽光＋蓄電池＋施設部窓</td><td>A＋住居部窓</td></tr>
+        <tr><td>投資総額（税抜）</td><td>2,167万円</td><td>2,944万円</td></tr>
+        <tr><td>補助金（見込）</td><td class="hi">▲496万円</td><td class="hi">▲496万円</td></tr>
+        <tr class="total"><td>自己負担</td><td>1,671万円</td><td>2,448万円</td></tr>
+        <tr><td>投資回収（現状）</td><td>6.0年</td><td>7.6年</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">どちらを選ばれても正解になるよう設計しています。<span class="note">※消費税は補助対象外。補助金は交付決定により確定します。</span></div>
+  </div>`},
+
+{bg:"light",html:`
+  <div class="inner">
+    <div class="eyebrow">SAVINGS & PAYBACK</div><h2 class="title">電気代はどれだけ下がるか</h2><div class="rule"></div>
+    <table class="data">
+      <thead><tr><th>項目</th><th>Aプラン</th><th>Bプラン</th></tr></thead>
+      <tbody>
+        <tr><td>年間削減（現状 30%）</td><td>277万円</td><td>322万円</td></tr>
+        <tr><td>年間削減（満床 100%）</td><td class="hi">408万円</td><td class="hi">558万円</td></tr>
+        <tr><td>投資回収（現状 → 満床）</td><td>6.0 → 4.1年</td><td>7.6 → 4.4年</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>20年間の累計純効果は最大で約8,712万円。</b>入居率の改善と一緒に進めるほど、効果が高まります。</div>
+  </div>`},
+
+{bg:"dark",html:`
+  <div class="inner">
+    <div class="eyebrow">RESILIENCE / BCP</div><h2 class="title">停電時も、入居者を守る</h2><div class="rule"></div>
+    <div class="grid g3">
+      <div class="card stat"><div class="n">40.5<span class="u">kWh</span></div><div class="lab">蓄電容量</div></div>
+      <div class="card stat"><div class="n">12〜24<span class="u">時間</span></div><div class="lab">停電時バックアップ</div></div>
+      <div class="card stat"><div class="n">無期限<span class="u">自立</span></div><div class="lab">太陽光連携・晴天時</div></div>
+    </div>
+    <div class="callout">認知症対応型施設は環境変化が大きな負担。停電対策は<b>ご入居者・ご家族の安心</b>に直結します。</div>
+  </div>`},
+
+{bg:"light",html:`
+  <div class="inner">
+    <div class="eyebrow">SCHEDULE</div><h2 class="title">進め方と補助金スケジュール</h2><div class="rule"></div>
+    <div class="timeline">
+      <div class="tl"><span class="d">2026/5/15</span><b>受付開始（済）</b></div>
+      <div class="tl"><span class="d">6/3</span><b>省エネ診断 実施（済）</b></div>
+      <div class="tl"><span class="d">〜7月</span><b>申請書類の整備</b></div>
+      <div class="tl"><span class="d">10/7</span><b>申請締切</b></div>
+      <div class="tl"><span class="d">11〜12月</span><b>交付決定後に工事</b></div>
+    </div>
+    <div class="callout warn"><b>ご注意：</b>交付決定の<b>前</b>に契約・着工すると補助対象外。申請手続きは<b>寺嵜が代行</b>します。</div>
+  </div>`},
+
+{bg:"dark",html:`
+  <div class="inner">
+    <div class="eyebrow">CONCLUSION & NEXT STEP</div><h2 class="title">ご検討のお願い</h2><div class="rule"></div>
+    <div class="grid g3">
+      <div class="card"><h3>① 電気代が下がる</h3><p>年間277〜322万円、満床時はさらに拡大。</p></div>
+      <div class="card"><h3>② 負担を抑える</h3><p>補助金 約496万円の交付見込み。</p></div>
+      <div class="card"><h3>③ 入居者を守る</h3><p>停電時も12〜24時間バックアップ。</p></div>
+    </div>
+    <div class="contact-card">
+      <div class="co">まずはお目通しのうえ、ご不明点をお聞かせください</div>
+      <div class="row"><span class="k">担当</span><span>株式会社シスコムネット　寺嵜 忠弘</span></div>
+      <div class="row"><span class="k">TEL</span><span>043-261-8033</span></div>
+      <div class="row"><span class="k">Mail</span><span>t-terasaki@syscomnet.co.jp</span></div>
+    </div>
+  </div>`}
+];
+
+/* ============ State ============ */
+const TOTAL = SLIDES.length;
+let current = 0, isPlaying = false, captionVisible = true;
+let audioMode = "tts", utter = null, audioEl = null;
+
+/* ============ Render ============ */
+function init(){
+  const deck = document.getElementById("deck");
+  SLIDES.forEach((s,i)=>{
+    const d = document.createElement("div");
+    d.className = "slide " + (s.bg||"light") + (s.cls?(" "+s.cls):"") + (i===0?" active":"");
+    d.innerHTML = s.html;
+    deck.appendChild(d);
+  });
+  document.getElementById("ptot").textContent = TOTAL;
+
+  const menu = document.getElementById("menu");
+  NARRATIONS.forEach(()=>{}); // noop
+  const TITLES = ["表紙","現状の電気代と課題","3段階で電気代を下げる","2つのプラン（A・B）","電気代削減効果と投資回収","停電時の備え（BCP）","進め方と補助金スケジュール","ご検討のお願い"];
+  TITLES.forEach((t,idx)=>{
+    const b = document.createElement("button");
+    b.className = "menu-item" + (idx===0?" active":"");
+    b.innerHTML = `<span class="num">${String(idx+1).padStart(2,"0")}</span><span>${t}</span>`;
+    b.onclick = ()=>{ goSlide(idx); toggleMenu(); };
+    menu.appendChild(b);
+  });
+
+  // restore audio mode
+  try{ const m=localStorage.getItem("kizuna_audio"); if(m){ audioMode=m; } }catch(e){}
+  reflectAudioMode();
+  updateUI();
+}
+
+function updateUI(){
+  document.querySelectorAll(".slide").forEach((s,i)=>s.classList.toggle("active", i===current));
+  document.getElementById("pcur").textContent = current+1;
+  document.getElementById("pfill").style.width = ((current+1)/TOTAL*100)+"%";
+  document.querySelectorAll(".menu-item").forEach((m,i)=>m.classList.toggle("active", i===current));
+  // animate chart bars on the active slide
+  const act = document.querySelectorAll(".slide")[current];
+  act.querySelectorAll(".chart .bar i").forEach(el=>{ const h=el.style.height; el.style.height="0"; requestAnimationFrame(()=>requestAnimationFrame(()=>el.style.height=h)); });
+  showCaption();
+}
+
+/* ============ Captions ============ */
+function showCaption(){ if(!captionVisible){return;} const c=document.getElementById("cap"); c.classList.add("show"); document.getElementById("cap-t").textContent = NARRATIONS[current]; }
+function hideCaption(){ document.getElementById("cap").classList.remove("show"); }
+function toggleCaption(){ captionVisible=!captionVisible; document.getElementById("cc-btn").classList.toggle("active",captionVisible); captionVisible?showCaption():hideCaption(); }
+
+/* ============ Navigation ============ */
+function goSlide(i){ stopNarration(); current=Math.max(0,Math.min(TOTAL-1,i)); updateUI(); }
+function nextSlide(){ if(current<TOTAL-1) goSlide(current+1); }
+function prevSlide(){ if(current>0) goSlide(current-1); }
+
+/* ============ Narration engine ============ */
+function setPlayIcon(playing){
+  document.getElementById("play-ico").innerHTML = playing
+    ? '<rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/>'
+    : '<path d="M7 4l13 8-13 8z"/>';
+}
+function togglePlay(){ isPlaying ? stopNarration() : playNarration(); }
+
+function playNarration(){
+  stopNarration(); isPlaying=true; setPlayIcon(true);
+  if(audioMode==="mp3") playMp3(); else speak(NARRATIONS[current]);
+}
+function stopNarration(){
+  isPlaying=false; setPlayIcon(false);
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  if(audioEl){ audioEl.pause(); audioEl.currentTime=0; audioEl=null; }
+}
+
+function speak(text){
+  if(!("speechSynthesis" in window)){ alert("お使いのブラウザは音声合成に対応していません。MP3モードをお試しください。"); isPlaying=false; setPlayIcon(false); return; }
+  utter = new SpeechSynthesisUtterance(text);
+  utter.lang="ja-JP"; utter.rate=1.0; utter.pitch=1.0;
+  const vs = window.speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.indexOf("ja")===0);
+  if(vs.length){ const pref=vs.find(v=>/Neural|Google|Kyoko|O-ren|Haruka|Nanami/i.test(v.name)); utter.voice = pref||vs[0]; }
+  utter.onend = ()=>{ if(isPlaying) advanceAuto(); };
+  window.speechSynthesis.speak(utter);
+}
+
+function playMp3(){
+  const num = String(current+1).padStart(2,"0");
+  audioEl = new Audio(`audio/${num}.mp3`);
+  audioEl.onended = ()=>{ if(isPlaying) advanceAuto(); };
+  audioEl.onerror = ()=>{ /* fallback to TTS if mp3 missing */ if(isPlaying){ audioEl=null; speak(NARRATIONS[current]); } };
+  audioEl.play().catch(()=>{ if(isPlaying){ audioEl=null; speak(NARRATIONS[current]); } });
+}
+
+function advanceAuto(){
+  if(current<TOTAL-1){ current++; updateUI(); setTimeout(()=>{ if(isPlaying){ audioMode==="mp3"?playMp3():speak(NARRATIONS[current]); } }, 600); }
+  else { stopNarration(); }
+}
+
+/* ============ Audio mode menu ============ */
+function toggleAudioMenu(){ document.getElementById("amenu").classList.toggle("open"); }
+function setAudioMode(m){ audioMode=m; try{ localStorage.setItem("kizuna_audio",m); }catch(e){} reflectAudioMode(); toggleAudioMenu(); stopNarration(); }
+function reflectAudioMode(){
+  document.getElementById("am-tts").classList.toggle("on", audioMode==="tts");
+  document.getElementById("am-mp3").classList.toggle("on", audioMode==="mp3");
+}
+
+/* ============ Menu drawer ============ */
+function toggleMenu(){ document.getElementById("menu").classList.toggle("open"); document.getElementById("scrim").classList.toggle("open"); }
+
+/* ============ Welcome ============ */
+function startShow(){
+  document.getElementById("welcome").classList.add("hide");
+  // prime speech engine on user gesture
+  try{ window.speechSynthesis.getVoices(); const u=new SpeechSynthesisUtterance(" "); u.volume=0; window.speechSynthesis.speak(u); }catch(e){}
+  setTimeout(()=>playNarration(), 350);
+}
+
+/* ============ Input ============ */
+document.addEventListener("keydown",(e)=>{
+  if(e.key==="ArrowRight"||e.key===" "){ e.preventDefault(); nextSlide(); }
+  else if(e.key==="ArrowLeft"){ prevSlide(); }
+  else if(e.key==="p"||e.key==="P"){ togglePlay(); }
+  else if(e.key==="Escape"){ stopNarration(); }
+});
+let tsx=0;
+document.addEventListener("touchstart",(e)=>{ tsx=e.changedTouches[0].screenX; },{passive:true});
+document.addEventListener("touchend",(e)=>{
+  const dx=e.changedTouches[0].screenX-tsx;
+  if(Math.abs(dx)>60){ dx<0?nextSlide():prevSlide(); }
+},{passive:true});
+
+if("speechSynthesis" in window){ window.speechSynthesis.onvoiceschanged = ()=>{}; }
+document.getElementById("cc-btn").classList.add("active");
+init();
+</script>
+</body>
+</html>
