@@ -81,15 +81,18 @@
   table.data thead th{background:var(--green-deep);color:#fff;font-weight:700;letter-spacing:.04em}
   table.data tbody tr:last-child td{border-bottom:none}
   table.data .hi{color:var(--green);font-weight:700}
+  table.data .em{color:var(--gold);font-weight:700}
+  table.data .dim{color:var(--muted)}
   table.data tr.total td{background:var(--paper-2);font-weight:700;color:var(--green-deep)}
 
   .callout{margin-top:20px;padding:16px 18px;border-radius:14px;border-left:5px solid var(--gold);
     background:rgba(193,154,62,.1);font-size:14px;line-height:1.8}
   .callout.warn{border-left-color:var(--danger);background:rgba(181,83,43,.1)}
+  .callout.good{border-left-color:var(--green-bright);background:rgba(47,155,126,.12)}
   .callout b{color:var(--green-deep)}
   .slide.dark .callout{background:rgba(231,207,142,.12)}
   .slide.dark .callout b{color:var(--gold-soft)}
-  .note{font-size:11.5px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+  .note{font-size:11.5px;color:var(--muted);margin-top:10px;letter-spacing:.02em;display:block}
 
   .contact-card{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;
     box-shadow:0 10px 30px rgba(18,48,42,.08)}
@@ -190,7 +193,7 @@
   <button class="btn play" id="play" title="ナレーション再生 / 停止" onclick="togglePlay()"><svg id="play-ico" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
   <button class="btn" id="next" title="次へ" onclick="nextSlide()"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
   <div class="spacer"></div>
-  <div class="pageno"><b id="pcur">1</b> / <span id="ptot">4</span></div>
+  <div class="pageno"><b id="pcur">1</b> / <span id="ptot">6</span></div>
   <button class="btn" id="menu-btn" title="目次" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
 </div>
 
@@ -210,18 +213,20 @@
 <div class="welcome" id="welcome">
   <div class="wbox">
     <div class="em">KIZUNA HOME</div>
-    <p>省エネルギー・脱炭素化 ご提案書（要点ミニマム版）<br>株式会社シスコムネットの寺嵜より、要点だけを短くお伝えいたします。</p>
+    <p>省エネルギー・脱炭素化 ご提案書（要点ミニマム版）<br>株式会社シスコムネットの寺嵜より、現行プランとの比較を軸に要点をお伝えします。</p>
     <button class="go" onclick="startShow()">▶ ナレーション付きで開始</button>
     <div class="hint">音声が再生されない場合は、画面の ▶ ボタンを一度押してください。<br>Chrome / Edge / Safari 推奨</div>
   </div>
 </div>
 
 <script>
-/* ============ Narration (4) ============ */
+/* ============ Narration (6) ============ */
 const NARRATIONS = [
-"皆川様、本日はご覧いただきありがとうございます。株式会社シスコムネットの寺嵜より、先日の省エネルギー診断の結果を踏まえ、KIZUNA HOME様の電気代削減のご提案を、要点だけ短くお伝えいたします。",
-"まず現状です。KIZUNA HOME様の年間電気代は約700万円、入居率はまだ約30パーセントですが、満床に近づくと約2100万円規模まで増える見込みです。そこで、窓のコーティングで減らし、太陽光78.75キロワットで作り、蓄電池40.5キロワットアワーで貯める。この3段階で電気代を下げ、停電時にもご入居者様を守ります。",
-"費用と効果です。千葉県の補助金約496万円を活用し、自己負担はAプラン1671万円、Bプラン2448万円。年間の電気代削減は現状でAプラン277万円からBプラン322万円、満床時にはさらに広がり、投資回収は4年台まで短縮します。20年間の累計では最大で約8700万円の効果が見込めます。",
+"皆川様、本日はご覧いただきありがとうございます。株式会社シスコムネットの寺嵜より、先日の省エネルギー診断の結果を踏まえ、KIZUNA HOME様の電気代削減のご提案を、現行プランとの比較を軸に、要点を絞ってお伝えいたします。",
+"まず現状です。KIZUNA HOME様の年間電気代は約700万円、年間使用量は約18万キロワットアワー。24時間稼働で、特に冬の早朝に暖房と給湯のピークがあります。入居率はまだ約30パーセントですが、満床に近づくと電気代は約2100万円規模まで増える見込みです。だからこそ、減らす、作る、貯める、の3段階が効いてきます。",
+"ご提案の柱は3段階です。第1に、窓の遮熱・断熱コーティングで熱の出入りを抑え、電気を減らす。第2に、太陽光発電78.75キロワットで電気を作る。第3に、蓄電池40.5キロワットアワーで貯めて、夕方から夜に使う。いずれも6月3日の省エネ診断の結果を踏まえた組み合わせです。",
+"費用と利回りです。導入しない場合は投資こそ不要ですが、電気代は現状でも年間約700万円、満床時には約2100万円が出ていき続けます。一方、本提案は千葉県の補助金約496万円を活用し、自己負担はAプラン1671万円、Bプラン2448万円。内部収益率IRRは、現状ベースでもAプランで約15パーセント、Bプランで約12パーセントと、十分な利回りが見込めます。",
+"削減効果です。年間の電気代削減は現状でAプラン277万円からBプラン322万円、満床時には408万円から558万円まで広がり、投資回収は満床達成で4年台に短縮します。窓のコーティングも、補助金2分の1を活用すれば自己負担が半減し、単体でおよそ5年で回収できる見込みです。20年間の累計では最大で約8700万円の効果が見込めます。",
 "まとめです。ひとつ、電気代は確実に下がります。ふたつ、補助金で実質負担を抑えられます。みっつ、停電時もご入居者様を守れます。ひとつだけ、補助金は交付決定の前に契約や着工をすると対象外になる点にご注意ください。申請の手続きは寺嵜が代行いたします。お問い合わせは、電話043-261-8033、メールt-terasaki@syscomnet.co.jpまで。寺嵜が最後まで伴走いたします。"
 ];
 
@@ -232,47 +237,69 @@ const SLIDES = [
     <div class="eyebrow" style="justify-content:center">SYSCOMNET ENERGY PROPOSAL</div>
     <div class="brandmark">省エネルギー・<br>電気代削減 ご提案</div>
     <div class="sub">KIZUNA HOME 様</div>
-    <div class="badge">要点ミニマム版（4枚）</div>
+    <div class="badge">要点ミニマム版（現行比較・IRR付き）</div>
     <div class="meta">株式会社シスコムネット　担当 寺嵜 忠弘<br>ご提案日：2026年6月3日</div>
   </div>`},
 
 {bg:"light",html:`
   <div class="inner">
-    <div class="eyebrow">CURRENT & APPROACH</div><h2 class="title">現状と、3段階のご提案</h2><div class="rule"></div>
-    <div class="grid g3">
+    <div class="eyebrow">THE CHALLENGE</div><h2 class="title">現状の電気代と課題</h2><div class="rule"></div>
+    <div class="grid g4">
       <div class="card stat"><div class="n">約700<span class="u">万円</span></div><div class="lab">年間電気代（現状）</div></div>
+      <div class="card stat"><div class="n">約18<span class="u">万kWh</span></div><div class="lab">年間使用量</div></div>
       <div class="card stat"><div class="n">約30<span class="u">%</span></div><div class="lab">入居率（24/80世帯）</div></div>
-      <div class="card stat"><div class="n">約2,100<span class="u">万円</span></div><div class="lab">満床時の電気代見込み</div></div>
+      <div class="card stat"><div class="n">49<span class="u">kW</span></div><div class="lab">冬の早朝ピーク</div></div>
     </div>
-    <div class="grid g3" style="margin-top:14px">
-      <div class="card"><h3>① 減らす</h3><p>窓の遮熱・断熱コーティングで、熱の出入りを抑制。</p></div>
-      <div class="card"><h3>② 作る</h3><p>太陽光発電 78.75kW で、年間 約86,000kWh を発電。</p></div>
-      <div class="card"><h3>③ 貯める・使う</h3><p>蓄電池 40.5kWh で夕方〜夜間に活用。停電時も12〜24時間バックアップ。</p></div>
+    <div class="callout">24時間稼働＋冬の暖房ピークが負担に。入居率が<b>満床(100%)に近づくと電気代は約2,100万円規模</b>へ。だからこそ「減らす×作る×貯める」が効きます。</div>
+  </div>`},
+
+{bg:"dark",html:`
+  <div class="inner">
+    <div class="eyebrow">OUR APPROACH</div><h2 class="title">3段階で電気代を下げる</h2><div class="rule"></div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card"><h3>① 減らす</h3><p>窓の遮熱・断熱コーティング（ビッグファインG）で、熱の出入りを抑制。</p></div>
+      <div class="card"><h3>② 作る</h3><p>太陽光発電 78.75kW を野立て設置。年間 約86,000kWh を発電。</p></div>
+      <div class="card"><h3>③ 貯める・使う</h3><p>蓄電池 40.5kWh（Powerwall 3 ×3）で、夕方〜夜間に活用。停電時も12〜24時間バックアップ。</p></div>
     </div>
-    <div class="callout">「減らす×作る×貯める」で電気代を下げ、<b>停電時もご入居者様を守ります</b>。いずれも6/3の省エネ診断の結果を踏まえた組み合わせです。</div>
+    <div class="callout">いずれも <b>6/3の省エネ診断（レナリア）</b> の結果を踏まえた組み合わせです。</div>
   </div>`},
 
 {bg:"light",html:`
   <div class="inner">
-    <div class="eyebrow">COST & EFFECT</div><h2 class="title">費用・補助金・削減効果</h2><div class="rule"></div>
+    <div class="eyebrow">COST · SUBSIDY · IRR</div><h2 class="title">現行プランとの比較</h2><div class="rule"></div>
     <table class="data">
-      <thead><tr><th>項目</th><th>Aプラン<br>補助金最適化</th><th>Bプラン<br>削減最大化</th></tr></thead>
+      <thead><tr><th>項目</th><th>導入しない<br>（現状維持）</th><th>Aプラン<br>補助金最適化</th><th>Bプラン<br>削減最大化</th></tr></thead>
       <tbody>
-        <tr><td>補助金（見込）</td><td class="hi">▲496万円</td><td class="hi">▲496万円</td></tr>
-        <tr class="total"><td>自己負担</td><td>1,671万円</td><td>2,448万円</td></tr>
+        <tr><td>補助金（見込）</td><td class="dim">ー</td><td class="hi">▲496万円</td><td class="hi">▲496万円</td></tr>
+        <tr class="total"><td>自己負担</td><td>0円</td><td>1,671万円</td><td>2,448万円</td></tr>
+        <tr><td>年間電気代の削減</td><td class="dim">0円</td><td>277万円</td><td>322万円</td></tr>
+        <tr><td>投資回収（現状→満床）</td><td class="dim">ー</td><td>6.0 → 4.1年</td><td>7.6 → 4.4年</td></tr>
+        <tr><td>IRR（現状ベース・20年）</td><td class="dim">ー</td><td class="em">約15%</td><td class="em">約12%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">「導入しない」場合も電気代は出ていき続けます（<b>現状でも年700万円、満床で年2,100万円</b>）。補助金活用でIRRは<b>二桁の利回り</b>を確保します。<span class="note">※IRRは現状入居率の年間削減額が20年継続する前提の試算値。満床到達でさらに向上します。</span></div>
+  </div>`},
+
+{bg:"light",html:`
+  <div class="inner">
+    <div class="eyebrow">SAVINGS & PAYBACK</div><h2 class="title">削減効果と、窓コーティングの回収</h2><div class="rule"></div>
+    <table class="data">
+      <thead><tr><th>項目</th><th>Aプラン</th><th>Bプラン</th></tr></thead>
+      <tbody>
         <tr><td>年間削減（現状 30%）</td><td>277万円</td><td>322万円</td></tr>
         <tr><td>年間削減（満床 100%）</td><td class="hi">408万円</td><td class="hi">558万円</td></tr>
         <tr><td>投資回収（現状 → 満床）</td><td>6.0 → 4.1年</td><td>7.6 → 4.4年</td></tr>
       </tbody>
     </table>
-    <div class="callout"><b>20年間の累計純効果は最大で約8,712万円。</b>どちらを選ばれても正解になるよう設計しています。<span class="note">※消費税は補助対象外。補助金は交付決定により確定します。</span></div>
+    <div class="callout good"><b>窓コーティング（住居部）も補助金1/2でしっかり回収。</b>投資 約777万円 → 補助金1/2活用で<b>自己負担 約389万円</b>。補助金を活かせば<b>窓単体でも約5年で回収</b>が見込めます。<span class="note">※住居部窓の投資額はA・Bプラン差額（税抜）ベース。窓単体の年間削減額・回収年数は診断書（レナリア）の値で確定します。</span></div>
+    <div class="callout"><b>20年間の累計純効果は最大で約8,712万円。</b>入居率の改善と一緒に進めるほど効果が高まります。</div>
   </div>`},
 
 {bg:"dark",html:`
   <div class="inner">
     <div class="eyebrow">CONCLUSION & NEXT STEP</div><h2 class="title">ご検討のお願い</h2><div class="rule"></div>
     <div class="grid g3">
-      <div class="card"><h3>① 電気代が下がる</h3><p>年間277〜322万円、満床時はさらに拡大。</p></div>
+      <div class="card"><h3>① 電気代が下がる</h3><p>年間277〜322万円、満床時はさらに拡大。IRR 約12〜15%。</p></div>
       <div class="card"><h3>② 負担を抑える</h3><p>補助金 約496万円の交付見込み。</p></div>
       <div class="card"><h3>③ 入居者を守る</h3><p>停電時も12〜24時間バックアップ。</p></div>
     </div>
@@ -303,7 +330,7 @@ function init(){
   document.getElementById("ptot").textContent = TOTAL;
 
   const menu = document.getElementById("menu");
-  const TITLES = ["表紙","現状と3段階のご提案","費用・補助金・削減効果","まとめとご連絡先"];
+  const TITLES = ["表紙","現状の電気代と課題","3段階で電気代を下げる","現行プランとの比較（費用・IRR）","削減効果と窓コーティングの回収","ご検討のお願い"];
   TITLES.forEach((t,idx)=>{
     const b = document.createElement("button");
     b.className = "menu-item" + (idx===0?" active":"");
