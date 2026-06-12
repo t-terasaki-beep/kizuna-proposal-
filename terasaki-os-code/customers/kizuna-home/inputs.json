@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "KIZUNA HOME様 省エネルギー・脱炭素化 ご提案書",
+    "customer": "KIZUNA HOME",
+    "customer_honorific": "様",
+    "contact_person": "皆川様",
+    "facility_type": "認知症対応型施設",
+    "proposer_company": "株式会社シスコムネット",
+    "proposer_name": "寺嵜 忠弘",
+    "proposal_date": "2026年6月3日",
+    "tel": "043-261-8033",
+    "email": "t-terasaki@syscomnet.co.jp"
+  },
+  "current": {
+    "annual_cost_man": 700,
+    "annual_kwh": 180000,
+    "occupancy_pct": 30,
+    "occupancy_detail": "24/80世帯",
+    "winter_peak_kw": 49,
+    "full_annual_cost_man": 2100,
+    "operation": "24時間稼働",
+    "peak_note": "冬の早朝に暖房と給湯のピーク"
+  },
+  "measures": {
+    "reduce": "窓の遮熱・断熱コーティング（ビッグファインG）で、熱の出入りを抑制。",
+    "generate": "太陽光発電 78.75kW を野立て設置。年間 約86,000kWh を発電。",
+    "store": "蓄電池 40.5kWh（Powerwall 3 ×3）で、夕方〜夜間に活用。",
+    "diagnosis_note": "6/3の省エネ診断（レナリア）",
+    "solar_kw": 78.75,
+    "battery_kwh": 40.5
+  },
+  "plans": {
+    "A": {
+      "name": "補助金最適化",
+      "composition": "太陽光＋蓄電池＋施設部窓",
+      "investment_man": 2167,
+      "subsidy_man": 496,
+      "savings_current_man": 277,
+      "savings_full_man": 408
+    },
+    "B": {
+      "name": "削減最大化",
+      "composition": "A＋住居部窓",
+      "investment_man": 2944,
+      "subsidy_man": 496,
+      "savings_current_man": 322,
+      "savings_full_man": 558
+    }
+  },
+  "bcp": {
+    "battery_kwh": 40.5,
+    "backup_hours": "12〜24",
+    "value_note": "認知症対応型施設は環境変化が大きな負担。停電対策はご入居者・ご家族の安心に直結します。"
+  },
+  "schedule": [
+    {"date": "2026/5/15", "label": "受付開始（済）"},
+    {"date": "6/3", "label": "省エネ診断 実施（済）"},
+    {"date": "〜7月", "label": "申請書類の整備"},
+    {"date": "10/7", "label": "申請締切"},
+    {"date": "11〜12月", "label": "交付決定後に工事"}
+  ],
+  "schedule_warning": "交付決定の前に契約・着工すると補助対象外。申請手続きは寺嵜が代行します。"
+}
