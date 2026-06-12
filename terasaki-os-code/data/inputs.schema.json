@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "terasaki-os-code 提案入力スキーマ",
+  "description": "顧客1社ぶんの省エネ・脱炭素提案を生成するための入力。万円・kWh・%は整数/小数で。",
+  "type": "object",
+  "required": ["meta", "current", "measures", "plans", "bcp", "schedule"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["customer", "proposer_company", "proposer_name", "tel", "email"],
+      "properties": {
+        "title": {"type": "string", "description": "ブラウザタブ/表紙のタイトル"},
+        "customer": {"type": "string", "description": "顧客名（例: KIZUNA HOME）"},
+        "customer_honorific": {"type": "string", "default": "様"},
+        "contact_person": {"type": "string", "description": "宛名のご担当者（例: 皆川様）。ナレーション冒頭の呼びかけに使用"},
+        "facility_type": {"type": "string", "description": "施設種別（例: 認知症対応型施設）。BCPの情緒価値で使用"},
+        "proposer_company": {"type": "string"},
+        "proposer_name": {"type": "string"},
+        "proposal_date": {"type": "string", "description": "例: 2026年6月3日"},
+        "tel": {"type": "string"},
+        "email": {"type": "string"}
+      }
+    },
+    "current": {
+      "type": "object",
+      "required": ["annual_cost_man", "annual_kwh", "occupancy_pct", "full_annual_cost_man"],
+      "properties": {
+        "annual_cost_man": {"type": "number", "description": "年間電気代（万円）"},
+        "annual_kwh": {"type": "number", "description": "年間使用量（kWh）"},
+        "occupancy_pct": {"type": "number", "description": "現状の入居率/稼働率（%）"},
+        "occupancy_detail": {"type": "string", "description": "例: 24/80世帯"},
+        "winter_peak_kw": {"type": "number", "description": "冬の早朝ピーク（kW）"},
+        "full_annual_cost_man": {"type": "number", "description": "満床/フル稼働時の想定年間電気代（万円）"},
+        "operation": {"type": "string", "default": "24時間稼働"},
+        "peak_note": {"type": "string", "description": "ピークの説明（例: 冬の早朝に暖房と給湯のピーク）"}
+      }
+    },
+    "measures": {
+      "type": "object",
+      "description": "減らす・作る・貯める の3段階",
+      "required": ["reduce", "generate", "store"],
+      "properties": {
+        "reduce": {"type": "string", "description": "①減らす の説明文"},
+        "generate": {"type": "string", "description": "②作る の説明文"},
+        "store": {"type": "string", "description": "③貯める・使う の説明文"},
+        "diagnosis_note": {"type": "string", "description": "診断の出典（例: 6/3の省エネ診断（レナリア））"},
+        "solar_kw": {"type": "number", "description": "太陽光容量（kW）。ナレーション用"},
+        "battery_kwh": {"type": "number", "description": "蓄電容量（kWh）。ナレーション用"}
+      }
+    },
+    "plans": {
+      "type": "object",
+      "description": "A/Bの2プラン。投資・補助金・年間削減額（現状/満床）を与えると、自己負担・回収年数・20年累計は自動計算される。",
+      "required": ["A", "B"],
+      "properties": {
+        "A": {"$ref": "#/definitions/plan"},
+        "B": {"$ref": "#/definitions/plan"}
+      }
+    },
+    "bcp": {
+      "type": "object",
+      "required": ["battery_kwh", "backup_hours"],
+      "properties": {
+        "battery_kwh": {"type": "number"},
+        "backup_hours": {"type": "string", "description": "例: 12〜24"},
+        "value_note": {"type": "string", "description": "金額に表れない価値（顧客特性に紐づけた一文）"}
+      }
+    },
+    "schedule": {
+      "type": "array",
+      "description": "補助金・工事の時系列",
+      "items": {
+        "type": "object",
+        "required": ["date", "label"],
+        "properties": {
+          "date": {"type": "string"},
+          "label": {"type": "string"}
+        }
+      }
+    },
+    "schedule_warning": {"type": "string", "description": "交付決定前の契約・着工は対象外、等の注意喚起"}
+  },
+  "definitions": {
+    "plan": {
+      "type": "object",
+      "required": ["name", "composition", "investment_man", "subsidy_man", "savings_current_man", "savings_full_man"],
+      "properties": {
+        "name": {"type": "string", "description": "プランの性格（例: 補助金最適化 / 削減最大化）"},
+        "composition": {"type": "string", "description": "構成（例: 太陽光＋蓄電池＋施設部窓）"},
+        "investment_man": {"type": "number", "description": "投資総額（税抜・万円）"},
+        "subsidy_man": {"type": "number", "description": "補助金見込（万円）"},
+        "savings_current_man": {"type": "number", "description": "現状入居率での年間削減額（万円）。省エネ診断由来"},
+        "savings_full_man": {"type": "number", "description": "満床/フル稼働時の年間削減額（万円）。省エネ診断由来"}
+      }
+    }
+  }
+}
